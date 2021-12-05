@@ -23,9 +23,9 @@ jobs:
         
       - name: Build OpenAPI file
         run: |
+          redoc-cli bundle ./kmoniPrettyAPI.yaml
           mkdir public
-          cd public
-          redoc-cli bundle ../kmoniPrettyAPI.yaml
+          mv redoc-static.html public/apispec.html
         
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
