@@ -11,7 +11,7 @@ paths:
       tags: []
       responses:
         '200':
-          description: OK
+          description: 揺れ情報が存在する場合
           content:
             application/json:
               schema:
@@ -34,8 +34,6 @@ paths:
                 enum:
                   - no-store
                 example: no-store
-        '400':
-          description: Bad Request
         '429':
           description: 異常な量のリクエストがあった場合
           headers:
@@ -58,7 +56,7 @@ paths:
       tags: []
       responses:
         '200':
-          description: OK
+          description: 揺れ情報が存在する場合
           content:
             application/json:
               schema:
@@ -82,7 +80,7 @@ paths:
                   - public
                 example: public
         '400':
-          description: Bad Request
+          description: 不正なリクエスト
         '404':
           description: 未来の時刻が指定された場合
           headers:
