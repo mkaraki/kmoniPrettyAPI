@@ -8,8 +8,6 @@ function get_from_kmoni($unixtime): array
     date_default_timezone_set(TZSTR_ASIA_TOKYO);
     $kmontime = date(EEW_DATETIME_FORMAT, $unixtime);
 
-    #die($kmontime);
-
     $api_endpoint = 'http://www.kmoni.bosai.go.jp/webservice/hypo/eew/' . $kmontime . '.json';
 
     $raw_json = file_get_contents($api_endpoint);
