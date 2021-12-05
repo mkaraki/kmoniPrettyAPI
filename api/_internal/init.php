@@ -93,7 +93,20 @@ function get_data_from_db($unixtime): array|bool|null
     if ($data['available'] === '0') {
         return null;
     }
-    return $data;
+
+    unset($data['available']);
+
+    return array(
+        'time' => intval($data['time']),
+        'region' => $data['region'],
+        'longitude' => floatval($data['longitude']),
+        'latitude' => floatval($data['latitude']),
+        'depth' => intval($data['depth']),
+        'japanese_intensity' => intval($data['japanese_intensity']),
+        'report_num' => intval($data['report_num']),
+        'alert_type' => $data['alert_type'],
+        'origin_time' => intval($data['origin_time']),
+    );
 }
 
 function set_data_to_db($unixtime, $data): void
