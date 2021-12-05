@@ -11,18 +11,29 @@ paths:
       tags: []
       responses:
         '200':
-          $ref: '#/components/responses/eqReport'
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/eqReport'
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+                default: public
+                enum:
+                  - public
+                example: public
         '204':
           description: 揺れのデータが存在しない場合
           headers:
             Cache-Control:
               schema:
                 type: string
-                default: no-store
+                default: public
                 enum:
-                  - no-store
                   - public
-              description: 基本は`no-store`ですが、時間指定された場合は`public`になります
+                example: public
         '400':
           description: Bad Request
         '404':
@@ -52,7 +63,7 @@ paths:
         - schema:
             type: string
           in: header
-      description: 現在もしくは指定された時刻の地震情報を取得します。
+      description: 指定された時刻の地震情報を取得します。
     parameters:
       - schema:
           type: integer
@@ -62,88 +73,115 @@ paths:
         name: time
         in: path
         description: 取得したい時間 (Unix Time)
-components:
-  schemas: {}
-  responses:
-    eqReport:
-      description: 揺れ情報
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              time:
-                type: integer
-                description: データの時刻 (Unixtime)
-                format: int64
-                example: 1638700273
-                minimum: 0
-              region:
+        required: true
+  /v1/info/:
+    get:
+      summary: Get current eq info
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/eqReport'
+          headers:
+            Cache-Control:
+              schema:
                 type: string
-              latitude:
-                type: number
-                description: 緯度
-                format: float
-                minimum: -90
-                maximum: 90
-              longitude:
-                type: number
-                description: 経度
-                format: float
-                minimum: -180
-                maximum: 180
-              depth:
-                type: integer
-                minimum: 0
-                description: 震源の深さ(km)
-                format: int32
-              japanese_intensity:
-                type: integer
-                description: 日本の深度
-                format: int32
-                minimum: 0
-                maximum: 9
-                example: 3
-              magunitude:
-                type: number
-                description: マグニチュード
-                minimum: 0
-                format: float
-              report_num:
-                type: integer
-                minimum: 1
-              alert_type:
+                default: no-store
+                enum:
+                  - no-store
+                example: no-store
+        '204':
+          description: 揺れのデータが存在しない場合
+          headers:
+            Cache-Control:
+              schema:
                 type: string
-              final:
-                type: boolean
-              origin_time:
-                type: integer
-                format: int64
-                minimum: 0
-                example: 1638700273
-            required:
-              - time
-          examples:
-            '2021-12-05 02:14:48 (UTC) トカラ列島近海':
-              value:
-                time: 1638670488
-                region: トカラ列島近海
-                longitude: 129.4
-                latitude: 29.3
-                depth: 10
-                japanese_intensity: 4
-                report_num: 7
-                alert_type: 予報
-                origin_time: 1638670465
-      headers:
-        Cache-Control:
-          schema:
+                default: no-store
+                enum:
+                  - no-store
+                example: no-store
+        '400':
+          description: Bad Request
+        '429':
+          description: 異常な量のリクエストがあった場合
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+                default: no-store
+                enum:
+                  - no-store
+                example: no-store
+        '':
+          description: ''
+      operationId: get-info
+      parameters:
+        - schema:
             type: string
-            default: no-store
-            enum:
-              - no-store
-              - public
-            example: no-store
-          description: 基本は`no-store`ですが、時間指定された場合は`public`になります
+          in: header
+      description: 現在の地震情報を取得します。
+    parameters: []
+components:
+  schemas:
+    eqReport:
+      title: eqReport
+      type: object
+      properties:
+        time:
+          type: integer
+          description: データの時刻 (Unixtime)
+          format: int64
+          example: 1638700273
+          minimum: 0
+        region:
+          type: string
+        latitude:
+          type: number
+          description: 緯度
+          format: float
+          minimum: -90
+          maximum: 90
+        longitude:
+          type: number
+          description: 経度
+          format: float
+          minimum: -180
+          maximum: 180
+        depth:
+          type: integer
+          minimum: 0
+          description: 震源の深さ(km)
+          format: int32
+        japanese_intensity:
+          type: integer
+          description: 日本の深度
+          format: int32
+          minimum: 0
+          maximum: 9
+          example: 3
+        magunitude:
+          type: number
+          description: マグニチュード
+          minimum: 0
+          format: float
+        report_num:
+          type: integer
+          minimum: 1
+        alert_type:
+          type: string
+        final:
+          type: boolean
+        origin_time:
+          type: integer
+          format: int64
+          minimum: 0
+          example: 1638700273
+      required:
+        - time
+      description: 揺れ情報レポート
+  responses: {}
   securitySchemes: {}
   parameters: {}
