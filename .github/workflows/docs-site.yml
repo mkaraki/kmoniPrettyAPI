@@ -5,6 +5,9 @@ name: Deploy OpenAPI docs
 on:
   push:
     branches: [ master ]
+    paths:
+      - kmoniPrettyAPI.yaml
+      - .github/workflows/docs-site.yml
 
 jobs:
   build:
