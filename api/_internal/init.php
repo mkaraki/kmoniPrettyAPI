@@ -1,5 +1,4 @@
 <?php
-
 const TZSTR_ASIA_TOKYO = 'Asia/Tokyo';
 const EEW_DATETIME_FORMAT = 'YmdHis';
 
@@ -43,6 +42,11 @@ function japanese_intensity_to_int($int): int
     return -1;
 }
 
+function kmoni_time_to_unixtime($strtime): int
+{
+    return date_create_from_format(EEW_DATETIME_FORMAT, $strtime, new DateTimeZone(TZSTR_ASIA_TOKYO))->getTimestamp();
+}
+
 function pretty($kmon)
 {
     if ($kmon['result']['message'] === 'データがありません') {
@@ -50,7 +54,7 @@ function pretty($kmon)
     }
 
     $return_data = array(
-        'time' => date_create_from_format(EEW_DATETIME_FORMAT, $kmon['request_time'], new DateTimeZone(TZSTR_ASIA_TOKYO))->getTimestamp(),
+        'time' => kmoni_time_to_unixtime($kmon['request_time']),
         'region' => $kmon['region_name'],
         'longitude' => floatval($kmon['longitude']),
         'latitude' => floatval($kmon['latitude']),
@@ -58,6 +62,7 @@ function pretty($kmon)
         'japanese_intensity' => japanese_intensity_to_int($kmon['calcintensity']),
         'report_num' => intval($kmon['report_num']),
         'alert_type' => $kmon['alertflg'],
+        'origin_time' => kmoni_time_to_unixtime($kmon['origin_time']),
     );
 
     if ($kmon['magunitude'] !== NAN) {
