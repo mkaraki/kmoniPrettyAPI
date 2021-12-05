@@ -23,6 +23,8 @@ paths:
                   - no-store
                   - public
               description: 基本は`no-store`ですが、時間指定された場合は`public`になります
+        '400':
+          description: Bad Request
         '404':
           description: 未来の時刻が指定された場合
           headers:
@@ -46,7 +48,10 @@ paths:
         '':
           description: ''
       operationId: get-info
-      parameters: []
+      parameters:
+        - schema:
+            type: string
+          in: header
       description: 現在もしくは指定された時刻の地震情報を取得します。
     parameters:
       - schema:
@@ -67,21 +72,12 @@ components:
           schema:
             type: object
             properties:
-              result:
-                type: object
-                properties:
-                  status:
-                    type: string
-                  message:
-                    type: string
               time:
                 type: integer
                 description: データの時刻 (Unixtime)
                 format: int64
                 example: 1638700273
                 minimum: 0
-              region_code:
-                type: string
               region_name:
                 type: string
               latitude:
@@ -101,12 +97,6 @@ components:
                 minimum: 0
                 description: 震源の深さ(km)
                 format: int32
-              measured_intensity:
-                type: number
-                description: 計測震度。元データの精度とは限らない
-                minimum: 0
-                format: float
-                example: 2.6
               japanese_intensity:
                 type: integer
                 description: 日本の深度
@@ -114,20 +104,11 @@ components:
                 minimum: 0
                 maximum: 9
                 example: 3
-              is_cancel:
-                type: boolean
-                default: false
-              is_final:
-                type: boolean
-                default: false
-                description: 最終報であるか
-              is_training:
-                type: boolean
-                default: false
               magunitude:
                 type: number
                 description: マグニチュード
                 minimum: 0
+                format: float
               report_num:
                 type: integer
                 minimum: 1
@@ -135,6 +116,8 @@ components:
                 type: string
               alert_type:
                 type: string
+              eew_reported:
+                type: boolean
             required:
               - time
       headers:
