@@ -77,7 +77,7 @@ function pretty($kmon): ?array
     }
 
     if ($kmon['is_final'] === 'true') {
-        $return_data['is_final'] = true;
+        $return_data['final'] = true;
     }
 
     return $return_data;
@@ -112,8 +112,8 @@ function get_data_from_db($unixtime): array|bool|null
         $return_data['magunitude'] = floatval($data['magunitude']);
     }
 
-    if ($data['is_final'] ?? null === '1') {
-        $return_data['is_final'] = true;
+    if ($data['final'] ?? null === '1') {
+        $return_data['final'] = true;
     }
 
     return $return_data;
