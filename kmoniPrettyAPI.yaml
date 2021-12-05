@@ -123,6 +123,18 @@ components:
                 example: 1638700273
             required:
               - time
+          examples:
+            example-1:
+              value:
+                time: 1638670488
+                region: トカラ列島近海
+                longitude: 129.4
+                latitude: 29.3
+                depth: 10
+                japanese_intensity: 4
+                report_num: 7
+                alert_type: 予報
+                origin_time: 1638670465
       headers:
         Cache-Control:
           schema:
