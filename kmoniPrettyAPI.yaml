@@ -5,6 +5,56 @@ info:
   summary: 強震モニターのAPIを機械的に変更し、処理時間の短縮を図ったAPI
 servers: []
 paths:
+  /v1/info/:
+    get:
+      summary: Get current eq info
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/eqReport'
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+                default: no-store
+                enum:
+                  - no-store
+                example: no-store
+        '204':
+          description: 揺れのデータが存在しない場合
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+                default: no-store
+                enum:
+                  - no-store
+                example: no-store
+        '400':
+          description: Bad Request
+        '429':
+          description: 異常な量のリクエストがあった場合
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+                default: no-store
+                enum:
+                  - no-store
+                example: no-store
+        '':
+          description: ''
+      operationId: get-info
+      parameters:
+        - schema:
+            type: string
+          in: header
+      description: 現在の地震情報を取得します。
+    parameters: []
   '/v1/info/{time}':
     get:
       summary: Get eq info by time
@@ -74,56 +124,6 @@ paths:
         in: path
         description: 取得したい時間 (Unix Time)
         required: true
-  /v1/info/:
-    get:
-      summary: Get current eq info
-      tags: []
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/eqReport'
-          headers:
-            Cache-Control:
-              schema:
-                type: string
-                default: no-store
-                enum:
-                  - no-store
-                example: no-store
-        '204':
-          description: 揺れのデータが存在しない場合
-          headers:
-            Cache-Control:
-              schema:
-                type: string
-                default: no-store
-                enum:
-                  - no-store
-                example: no-store
-        '400':
-          description: Bad Request
-        '429':
-          description: 異常な量のリクエストがあった場合
-          headers:
-            Cache-Control:
-              schema:
-                type: string
-                default: no-store
-                enum:
-                  - no-store
-                example: no-store
-        '':
-          description: ''
-      operationId: get-info
-      parameters:
-        - schema:
-            type: string
-          in: header
-      description: 現在の地震情報を取得します。
-    parameters: []
 components:
   schemas:
     eqReport:
