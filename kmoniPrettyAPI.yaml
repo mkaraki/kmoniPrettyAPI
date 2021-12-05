@@ -124,7 +124,7 @@ components:
             required:
               - time
           examples:
-            example-1:
+            '2021-12-05 02:14:48 (UTC) トカラ列島近海':
               value:
                 time: 1638670488
                 region: トカラ列島近海
