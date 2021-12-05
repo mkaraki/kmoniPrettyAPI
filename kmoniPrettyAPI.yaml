@@ -49,10 +49,7 @@ paths:
         '':
           description: ''
       operationId: get-info
-      parameters:
-        - schema:
-            type: string
-          in: header
+      parameters: []
       description: 現在の地震情報を取得します。
     parameters: []
   '/v1/info/{time}':
@@ -109,10 +106,7 @@ paths:
         '':
           description: ''
       operationId: get-info
-      parameters:
-        - schema:
-            type: string
-          in: header
+      parameters: []
       description: 指定された時刻の地震情報を取得します。
     parameters:
       - schema:
