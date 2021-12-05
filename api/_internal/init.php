@@ -64,5 +64,9 @@ function pretty($kmon)
         $return_data['magunitude'] = floatval($kmon['magunitude']);
     }
 
+    if ($kmon['is_final'] === 'true') {
+        $return_data['is_final'] = true;
+    }
+
     return $return_data;
 }
