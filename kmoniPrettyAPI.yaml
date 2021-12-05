@@ -78,7 +78,7 @@ components:
                 format: int64
                 example: 1638700273
                 minimum: 0
-              region_name:
+              region:
                 type: string
               latitude:
                 type: number
