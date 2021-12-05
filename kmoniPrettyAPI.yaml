@@ -116,6 +116,11 @@ components:
                 type: string
               final:
                 type: boolean
+              origin_time:
+                type: integer
+                format: int64
+                minimum: 0
+                example: 1638700273
             required:
               - time
       headers:
