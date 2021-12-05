@@ -24,7 +24,11 @@ if ($path < 0) {
 
 require_once __DIR__ . '/../_internal/init.php';
 
-$data = pretty(get_from_kmoni($path));
+$data = get_data_from_db($path);
+if ($data === false) {
+    $data = pretty(get_from_kmoni($path));
+    set_data_to_db($path, $data);
+}
 
 if ($data !== null) {
     header('Content-Type: application/json; charset=utf-8');

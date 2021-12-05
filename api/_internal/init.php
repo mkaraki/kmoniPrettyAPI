@@ -1,4 +1,7 @@
 <?php
+require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/db_cred.php';
+
 const TZSTR_ASIA_TOKYO = 'Asia/Tokyo';
 const EEW_DATETIME_FORMAT = 'YmdHis';
 
@@ -47,7 +50,7 @@ function kmoni_time_to_unixtime($strtime): int
     return date_create_from_format(EEW_DATETIME_FORMAT, $strtime, new DateTimeZone(TZSTR_ASIA_TOKYO))->getTimestamp();
 }
 
-function pretty($kmon)
+function pretty($kmon): ?array
 {
     if ($kmon['result']['message'] === 'データがありません') {
         return null;
@@ -74,4 +77,30 @@ function pretty($kmon)
     }
 
     return $return_data;
+}
+
+function get_data_from_db($unixtime): array|bool|null
+{
+    $data = DB::queryFirstRow('SELECT * FROM logs WHERE time = %i', $unixtime);
+    if ($data === null) {
+        return false;
+    }
+
+    if ($data['available'] === false) {
+        return null;
+    }
+    return $data;
+}
+
+function set_data_to_db($unixtime, $data): void
+{
+    if ($data === null) {
+        DB::insert('logs', [
+            'time' => $unixtime,
+            'available' => false,
+        ]);
+        return;
+    }
+
+    DB::insert('logs', $data);
 }
