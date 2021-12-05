@@ -112,12 +112,8 @@ components:
               report_num:
                 type: integer
                 minimum: 1
-              report_id:
-                type: string
               alert_type:
                 type: string
-              eew_reported:
-                type: boolean
             required:
               - time
       headers:
