@@ -114,6 +114,8 @@ components:
                 minimum: 1
               alert_type:
                 type: string
+              final:
+                type: boolean
             required:
               - time
       headers:
