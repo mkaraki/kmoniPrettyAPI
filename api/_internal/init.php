@@ -90,7 +90,7 @@ function get_data_from_db($unixtime): array|bool|null
         return false;
     }
 
-    if ($data['available'] === false) {
+    if ($data['available'] === '0') {
         return null;
     }
     return $data;
