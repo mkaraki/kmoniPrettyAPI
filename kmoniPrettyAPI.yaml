@@ -7,7 +7,7 @@ servers: []
 paths:
   '/v1/info/{time}':
     get:
-      summary: Get current eq info
+      summary: Get eq info by time
       tags: []
       responses:
         '200':
