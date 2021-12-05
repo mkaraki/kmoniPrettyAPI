@@ -10,5 +10,5 @@ CREATE TABLE logs(
     report_num INT(4),
     alert_type VARCHAR(15),
     final BOOLEAN,
-    origin_time INT(11),
+    origin_time INT(11)
 );
