@@ -112,7 +112,7 @@ function get_data_from_db($unixtime): array|bool|null
         $return_data['magunitude'] = floatval($data['magunitude']);
     }
 
-    if ($data['is_final'] === '1') {
+    if ($data['is_final'] ?? null === '1') {
         $return_data['is_final'] = true;
     }
 
