@@ -1,14 +1,16 @@
-CREATE TABLE logs(
-    time INT(11) NOT NULL PRIMARY KEY,
+DROP DATABASE IF EXISTS eew;
+CREATE DATABASE eew DEFAULT CHARACTER SET utf8;
+CREATE TABLE eew.logs(
+    time INT NOT NULL PRIMARY KEY,
     available BOOLEAN NOT NULL DEFAULT TRUE,
     region VARCHAR(255),
-    latitude FLOAT(8, 6),
-    longitude FLOAT(10, 6),
-    depth INT(5),
-    japanese_intensity INT(2),
-    magunitude FLOAT(5, 2),
-    report_num INT(4),
+    latitude FLOAT,
+    longitude FLOAT,
+    depth INT,
+    japanese_intensity INT,
+    magunitude FLOAT,
+    report_num INT,
     alert_type VARCHAR(15),
     final BOOLEAN,
-    origin_time INT(11)
+    origin_time INT
 );

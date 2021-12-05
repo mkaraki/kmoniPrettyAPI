@@ -1,9 +1,13 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
-require_once __DIR__ . '/db_cred.php';
 
 const TZSTR_ASIA_TOKYO = 'Asia/Tokyo';
 const EEW_DATETIME_FORMAT = 'YmdHis';
+
+DB::$dbName = 'eew';
+DB::$encoding = 'utf8';
+
+require_once __DIR__ . '/db_cred.php';
 
 function get_from_kmoni($unixtime): array
 {
