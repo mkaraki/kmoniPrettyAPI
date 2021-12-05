@@ -65,7 +65,7 @@ function pretty($kmon): ?array
         'region' => $kmon['region_name'],
         'longitude' => floatval($kmon['longitude']),
         'latitude' => floatval($kmon['latitude']),
-        'depth' => str_replace('km', '', $kmon['depth']),
+        'depth' => intval(str_replace('km', '', $kmon['depth'])),
         'japanese_intensity' => japanese_intensity_to_int($kmon['calcintensity']),
         'report_num' => intval($kmon['report_num']),
         'alert_type' => $kmon['alertflg'],
@@ -96,7 +96,7 @@ function get_data_from_db($unixtime): array|bool|null
 
     unset($data['available']);
 
-    return array(
+    $return_data = array(
         'time' => intval($data['time']),
         'region' => $data['region'],
         'longitude' => floatval($data['longitude']),
@@ -107,6 +107,16 @@ function get_data_from_db($unixtime): array|bool|null
         'alert_type' => $data['alert_type'],
         'origin_time' => intval($data['origin_time']),
     );
+
+    if ($data['magunitude'] !== null) {
+        $return_data['magunitude'] = floatval($data['magunitude']);
+    }
+
+    if ($data['is_final'] === '1') {
+        $return_data['is_final'] = true;
+    }
+
+    return $return_data;
 }
 
 function set_data_to_db($unixtime, $data): void
