@@ -121,6 +121,19 @@ components:
     eqReport:
       title: eqReport
       type: object
+      description: 揺れ情報レポート
+      examples:
+        - time: 1638700273
+          region: string
+          latitude: -90
+          longitude: -180
+          depth: 0
+          japanese_intensity: 3
+          magunitude: 0
+          report_num: 1
+          alert_type: 警報
+          final: true
+          origin_time: 1638700273
       properties:
         time:
           type: integer
@@ -130,6 +143,7 @@ components:
           minimum: 0
         region:
           type: string
+          description: 地域
         latitude:
           type: number
           description: 緯度
@@ -162,18 +176,24 @@ components:
         report_num:
           type: integer
           minimum: 1
+          description: 報番
         alert_type:
           type: string
+          enum:
+            - 警報
+            - 予報
+          description: 警報もしくは予報
         final:
           type: boolean
+          description: 最終報であるか
         origin_time:
           type: integer
           format: int64
           minimum: 0
           example: 1638700273
+          description: 地震の発生時刻
       required:
         - time
-      description: 揺れ情報レポート
   responses: {}
   securitySchemes: {}
   parameters: {}
