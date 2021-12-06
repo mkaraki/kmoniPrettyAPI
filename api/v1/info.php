@@ -1,7 +1,4 @@
 <?php
-$is_manual = isset($_SERVER['PATH_INFO']);
-$path = $_SERVER['PATH_INFO'] ?? (time() - 2 /* For safe*/);
-$path = trim($path, '/');
 
 if (!is_numeric($path)) {
     http_response_code(400);

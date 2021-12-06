@@ -1,5 +1,6 @@
 {
     "require": {
-        "sergeytsalkov/meekrodb": "^2.4"
+        "sergeytsalkov/meekrodb": "^2.4",
+        "pecee/simple-router": "4.3.7.2"
     }
 }
